@@ -1,0 +1,147 @@
+:root {
+  /* Colores base: valores provisionales, facil de ajustar despues */
+  --color-primary: #372b9c;
+  --color-primary-light: #ede9fe;
+
+  --color-bg: #f4f4f6;
+  --color-surface: #ffffff;
+  --color-sidebar-bg: #ffffff;
+
+  --color-text: #212529;
+  --color-text-muted: #6c757d;
+
+  --color-border: #e9ecef;
+
+  /* Prioridad: que tan urgente es la tarea */
+  --color-alta: #f28b82;
+  --color-media: #f6c667;
+  --color-baja: #8fd19e;
+
+  /* Estado: en que punto va la tarea */
+  --color-pendiente: #eef2ff;
+  --color-pendiente-texto: #4f46e5;
+  --color-proceso: #fff7ed;
+  --color-proceso-texto: #c2620c;
+  --color-completada: #ecfdf5;
+  --color-completada-texto: #047857;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 220px;
+  background-color: var(--color-sidebar-bg);
+  border-right: 5px solid var(--color-border);
+  min-height: 100vh;
+}
+
+.sidebar .logo {
+  font-weight: 700;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.sidebar-link.active {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.sidebar-link:hover {
+  background-color: var(--color-bg);
+}
+
+
+.stat-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 0.9rem 1.2rem;
+}
+
+.stat-card .stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+
+.dark-mode-toggle {
+  background-color: var(--color-text);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+
+.bi-pencil,
+.bi-trash {
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--color-text-muted);
+}
+
+.bi-trash:hover {
+  color: #dc3545;
+}
+
+
+.task-card {
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  transition: box-shadow 0.15s ease;
+}
+
+.task-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+
+.task-completada {
+  opacity: 0.7;
+}
+
+
+.badge-estado {
+  font-weight: 500;
+}
+
+.estado-pendiente {
+  background-color: var(--color-pendiente);
+  color: var(--color-pendiente-texto);
+}
+
+.estado-proceso {
+  background-color: var(--color-proceso);
+  color: var(--color-proceso-texto);
+}
+
+.estado-completada {
+  background-color: var(--color-completada);
+  color: var(--color-completada-texto);
+}
+
+
+.badge-prioridad {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.prioridad-alta  { background-color: var(--color-alta); }
+.prioridad-media { background-color: var(--color-media); }
+.prioridad-baja  { background-color: var(--color-baja); }
