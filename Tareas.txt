@@ -1,0 +1,2 @@
+1. quitar los scripts del html, era para validar. (DarkMode y validaion y checklist de los formularios)
+2. cuando se pueda realizar js implementar funciones.
