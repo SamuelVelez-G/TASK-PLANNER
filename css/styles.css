@@ -1,0 +1,287 @@
+/* ============================================
+   PALETA TERRACOTA - MODO CLARO (por defecto)
+   ============================================ */
+:root {
+  /* Marca */
+  --color-primary: #c2410c;
+  --color-primary-hover: #9a3412;
+  --color-primary-tint: #fff1e7;
+  --color-on-primary: #ffffff;
+
+  /* Superficies */
+  --color-bg: #faf7f4;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f5efe9;
+
+  /* Texto */
+  --color-text: #1c1917;
+  --color-text-muted: #78716c;
+
+  /* Bordes */
+  --color-border: #ebe3dc;
+
+  /* Prioridad (relleno suave + texto oscuro del mismo tono) */
+  --alta-bg: #fee2e2;      --alta-text: #991b1b;
+  --media-bg: #fef3c7;     --media-text: #92400e;
+  --baja-bg: #ecfccb;      --baja-text: #3f6212;
+
+  /* Estado (solo borde y texto, sin relleno) */
+  --pendiente: #78716c;
+  --proceso: #d97706;
+  --completada: #65a30d;
+
+  /* Logo Peldano: tres escalones, del mas claro al mas oscuro */
+  --logo-1: #fdba74;
+  --logo-2: #f97316;
+  --logo-3: #ea580c;
+}
+
+/* ============================================
+   PALETA TERRACOTA - MODO OSCURO
+   Se activa cuando <html> tiene data-bs-theme="dark"
+   ============================================ */
+[data-bs-theme="dark"] {
+  --color-primary: #fb923c;
+  --color-primary-hover: #fdba74;
+  --color-primary-tint: #2d1f16;
+  --color-on-primary: #17120f;
+
+  --color-bg: #17120f;
+  --color-surface: #221b16;
+  --color-surface-alt: #2a211b;
+
+  --color-text: #f5f0eb;
+  --color-text-muted: #a89a8f;
+
+  --color-border: #362b23;
+
+  --alta-bg: #3f1d1d;      --alta-text: #fca5a5;
+  --media-bg: #3d2f14;     --media-text: #fcd34d;
+  --baja-bg: #2b3618;      --baja-text: #bef264;
+
+  --pendiente: #a8a29e;
+  --proceso: #f59e0b;
+  --completada: #a3e635;
+
+  --logo-1: #7c4a2a;
+  --logo-2: #ea7c3c;
+  --logo-3: #fb923c;
+}
+
+/* ============================================
+   BASE
+   ============================================ */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Sobrescribimos las variables internas de Bootstrap
+   para que sus componentes usen NUESTROS colores */
+.card {
+  --bs-card-bg: var(--color-surface);
+  --bs-card-border-color: var(--color-border);
+  --bs-card-color: var(--color-text);
+}
+
+.form-control,
+.form-select {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-tint);
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--color-primary);
+  --bs-btn-border-color: var(--color-primary);
+  --bs-btn-color: var(--color-on-primary);
+  --bs-btn-hover-bg: var(--color-primary-hover);
+  --bs-btn-hover-border-color: var(--color-primary-hover);
+  --bs-btn-hover-color: var(--color-on-primary);
+}
+
+.form-check-input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+.sidebar {
+  width: 220px;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  min-height: 100vh;
+}
+
+.sidebar .logo {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.sidebar-link:hover {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text);
+}
+
+.sidebar-link.active {
+  background-color: var(--color-primary-tint);
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+/* ============================================
+   TARJETAS DE ESTADISTICAS
+   ============================================ */
+.stat-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 0.9rem 1.2rem;
+}
+
+.stat-card .stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* ============================================
+   BOTON DARK MODE
+   ============================================ */
+.dark-mode-toggle {
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.dark-mode-toggle:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ============================================
+   TARJETA DE TAREA
+   ============================================ */
+.task-card {
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  transition: border-color 0.15s ease;
+}
+
+.task-card:hover {
+  border-color: var(--color-primary);
+}
+
+.task-completada {
+  opacity: 0.65;
+}
+
+/* Estado: pill con borde, sin relleno */
+.badge-estado {
+  font-weight: 500;
+  background-color: transparent;
+  border: 1px solid currentColor;
+}
+
+.estado-pendiente  { color: var(--pendiente); }
+.estado-proceso    { color: var(--proceso); }
+.estado-completada { color: var(--completada); }
+
+/* Prioridad: pill con relleno suave */
+.badge-prioridad {
+  font-weight: 500;
+}
+
+.prioridad-alta  { background-color: var(--alta-bg);  color: var(--alta-text); }
+.prioridad-media { background-color: var(--media-bg); color: var(--media-text); }
+.prioridad-baja  { background-color: var(--baja-bg);  color: var(--baja-text); }
+
+/* ============================================
+   ICONOS DE ACCION
+   ============================================ */
+.bi-pencil,
+.bi-trash {
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  transition: color 0.15s ease;
+}
+
+.bi-pencil:hover { color: var(--color-primary); }
+.bi-trash:hover  { color: #dc2626; }
+
+/* Texto atenuado: forzamos nuestro color en vez del de Bootstrap */
+.text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+/* ============================================
+   LOGO
+   ============================================ */
+.logo-texto {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+/* ============================================
+   BUSCADOR
+   ============================================ */
+.buscador {
+  max-width: 240px;
+}
+
+.buscador .input-group-text {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   BARRA DE PROGRESO
+   ============================================ */
+.progress {
+  background-color: var(--color-surface-alt);
+  border-radius: 999px;
+}
+
+.progress-bar {
+  background-color: var(--color-primary);
+  border-radius: 999px;
+}
+
+/* ============================================
+   ESTADO VACIO
+   ============================================ */
+.estado-vacio i {
+  font-size: 2.75rem;
+  color: var(--color-text-muted);
+  opacity: 0.5;
+}
