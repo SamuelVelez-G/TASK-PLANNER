@@ -245,7 +245,7 @@ body {
    LOGO
    ============================================ */
 .logo-texto {
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--color-text);

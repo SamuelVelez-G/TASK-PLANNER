@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
   <!-- Tu hoja de estilos propia (aqui viven las variables :root) -->
-  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -29,7 +29,7 @@
           <rect x="15" y="18" width="10" height="18" rx="2.5" fill="var(--logo-2)"/>
           <rect x="26" y="8"  width="10" height="28" rx="2.5" fill="var(--logo-3)"/>
         </svg>
-        <span class="logo-texto">Peldaños</span>
+        <span class="logo-texto">Peldaño</span>
       </div>
 
       <nav class="d-flex flex-column gap-1">
@@ -57,7 +57,9 @@
       <!-- Encabezado -->
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0">Organiza tus pendientes</h1>
-        <button type="button" class="dark-mode-toggle" id="btnTema"><i class="bi bi-moon"></i> Dark mode</button>
+        <button type="button" class="dark-mode-toggle" id="btnTema">
+          <i class="bi bi-moon" id="iconoTema"></i> <span id="textoTema">Modo oscuro</span>
+        </button>
       </div>
 
       <!-- Tarjetas de estadisticas -->
@@ -105,47 +107,59 @@
             <div class="card-body">
               <h2 class="h5 card-title mb-3">Agregar tarea</h2>
 
-              <form class="needs-validation" novalidate>
+              <!-- Alerta de error: oculta por defecto con la clase d-none -->
+              <div id="formAlert" class="alert alert-danger d-none" role="alert">
+                <div class="d-flex gap-2">
+                  <i class="bi bi-exclamation-triangle-fill"></i>
+                  <div>
+                    <strong class="d-block">Revisa el formulario</strong>
+                    <ul id="formAlertList" class="mb-0 ps-3 small"></ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Alerta de exito -->
+              <div id="formSuccess" class="alert alert-success d-none" role="alert">
+                <i class="bi bi-check-circle-fill"></i> Datos validos. Tarea lista para registrarse.
+              </div>
+
+              <form id="newTaskForm" novalidate>
 
                 <div class="mb-3">
-                  <label for="nombreTarea" class="form-label">Nombre de la tarea</label>
-                  <input type="text" class="form-control" id="nombreTarea"
-                         placeholder="Ej. Comprar regalo"
-                         required minlength="3" maxlength="60">
-                  <div class="invalid-feedback">
-                    El nombre debe tener entre 3 y 60 caracteres.
-                  </div>
+                  <label for="newTaskNameInput" class="form-label">Nombre de la tarea</label>
+                  <input type="text" class="form-control" id="newTaskNameInput"
+                         placeholder="Ej. Comprar regalo">
                 </div>
 
                 <div class="mb-3">
-                  <label for="descripcionTarea" class="form-label">
-                    Descripción <span class="text-muted small">(opcional)</span>
-                  </label>
-                  <textarea class="form-control" id="descripcionTarea" rows="2" maxlength="200"></textarea>
-                  <div class="invalid-feedback">
-                    La descripción no puede superar los 200 caracteres.
-                  </div>
+                  <label for="newTaskDescriptionInput" class="form-label">Descripcion</label>
+                  <textarea class="form-control" id="newTaskDescriptionInput" rows="2"
+                            placeholder="Detalle de la tarea"></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label for="newTaskDueDateInput" class="form-label">Fecha de entrega</label>
+                  <input type="date" class="form-control" id="newTaskDueDateInput">
                 </div>
 
                 <div class="row g-2 mb-3">
                   <div class="col-6">
-                    <label for="fechaTarea" class="form-label">Fecha límite</label>
-                    <input type="date" class="form-control" id="fechaTarea" required>
-                    <div class="invalid-feedback">
-                      Selecciona una fecha límite.
-                    </div>
+                    <label for="newTaskStatusInput" class="form-label">Estado</label>
+                    <select class="form-select" id="newTaskStatusInput">
+                      <option value="">Elegir...</option>
+                      <option value="pendiente">Pendiente</option>
+                      <option value="proceso">En proceso</option>
+                      <option value="completada">Completada</option>
+                    </select>
                   </div>
                   <div class="col-6">
-                    <label for="prioridadTarea" class="form-label">Prioridad</label>
-                    <select class="form-select" id="prioridadTarea" required>
-                      <option value="" selected disabled>Elegir…</option>
+                    <label for="newTaskPriorityInput" class="form-label">Prioridad</label>
+                    <select class="form-select" id="newTaskPriorityInput">
+                      <option value="">Elegir...</option>
                       <option value="alta">Alta</option>
                       <option value="media">Media</option>
                       <option value="baja">Baja</option>
                     </select>
-                    <div class="invalid-feedback">
-                      Selecciona una prioridad.
-                    </div>
                   </div>
                 </div>
 
@@ -324,69 +338,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!--
-    Activacion de las validaciones visuales de Bootstrap.
-    Este bloque es el que provee la documentacion oficial de Bootstrap.
-  -->
-  <script>
-    // 1. Buscamos todos los formularios que tengan la clase "needs-validation"
-    const formularios = document.querySelectorAll('.needs-validation');
-
-    // 2. A cada uno le escuchamos el evento "submit" (cuando se intenta enviar)
-    formularios.forEach(function (formulario) {
-      formulario.addEventListener('submit', function (evento) {
-
-        // 3. checkValidity() revisa TODOS los atributos (required, minlength, etc.)
-        //    y devuelve true si todo esta correcto, false si algo falla.
-        if (!formulario.checkValidity()) {
-          evento.preventDefault();   // cancela el envio
-          evento.stopPropagation();  // evita que el evento siga propagandose
-        }
-
-        // 4. Agregamos la clase "was-validated": esto le dice a Bootstrap
-        //    que pinte los bordes de rojo/verde y muestre los mensajes.
-        formulario.classList.add('was-validated');
-      });
-    });
-  </script>
-
-
-
-
-
-
-
-
-
-  <!-- ============================================
-       CAMBIO DE TEMA (claro / oscuro)
-       ============================================ -->
-  <script>
-    const btnTema   = document.getElementById('btnTema');
-    const iconoTema = document.getElementById('iconoTema');
-    const textoTema = document.getElementById('textoTema');
-    const html      = document.documentElement;   // la etiqueta <html>
-
-    btnTema.addEventListener('click', function () {
-
-      // 1. Leemos el tema actual del atributo data-bs-theme
-      const temaActual = html.getAttribute('data-bs-theme');
-
-      // 2. Calculamos el opuesto
-      const temaNuevo = temaActual === 'dark' ? 'light' : 'dark';
-
-      // 3. Lo aplicamos: esto dispara TODO el cambio de colores
-      html.setAttribute('data-bs-theme', temaNuevo);
-
-      // 4. Actualizamos el icono y el texto del boton
-      if (temaNuevo === 'dark') {
-        iconoTema.className = 'bi bi-sun';
-        textoTema.textContent = 'Modo claro';
-      } else {
-        iconoTema.className = 'bi bi-moon';
-        textoTema.textContent = 'Modo oscuro';
-      }
-    });
-  </script>
+  <!-- Scripts propios del proyecto -->
+  <script src="/JS/dark.js"></script>
+  <script src="/JS/app.js"></script>
 </body>
 </html>
