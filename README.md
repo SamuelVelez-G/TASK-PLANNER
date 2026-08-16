@@ -30,8 +30,6 @@ largo de varios sprints siguiendo un flujo de trabajo similar al de un equipo de
 
 ## Vista previa
 
-![Interfaz de Peldaño](docs/preview.png)
-
 ## Características
 
 | | |
