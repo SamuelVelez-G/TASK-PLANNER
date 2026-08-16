@@ -55,22 +55,6 @@ largo de varios sprints siguiendo un flujo de trabajo similar al de un equipo de
 
 **Herramientas de trabajo:** Figma (wireframe), Trello (gestión del sprint), Visual Studio Code.
 
-## Decisiones técnicas
-
-Algunas elecciones que vale la pena señalar:
-
-- **Variables CSS en `:root`** en lugar de valores fijos. Toda la paleta se define en un solo
-  lugar y se redefine dentro de `[data-bs-theme="dark"]`, de modo que el cambio de tema
-  se reduce a alternar un atributo en la etiqueta `<html>`.
-- **Sobrescritura de las variables internas de Bootstrap** (`--bs-card-bg`, `--bs-btn-bg`)
-  en vez de recurrir a `!important`, manteniendo el CSS limpio y predecible.
-- **Separación de responsabilidades en JavaScript**: `dark.js` gestiona la apariencia y
-  `app.js` la lógica de la aplicación, cada uno con un propósito único.
-- **Estado y prioridad diferenciados por forma, no solo por color** (contorno frente a relleno),
-  para que la información siga siendo legible sin depender de la percepción cromática.
-- **Logo en SVG inline** cuyos colores derivan de las mismas variables CSS, por lo que se
-  adapta automáticamente al tema activo.
-
 ## Estructura del proyecto
 
 ```
