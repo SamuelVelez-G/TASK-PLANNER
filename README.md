@@ -66,7 +66,8 @@ TASK-PLANNER/
 │   └── styles.css      # Variables de tema y estilos propios
 └── js/
     ├── dark.js         # Alternancia entre modo claro y oscuro
-    └── app.js          # Validación del formulario de tareas
+    ├── taskManager.js   # Lógica de gestión de tareas
+    └── index.js        # Renderizado y eventos de la app
 ```
 
 **Fase de planificación:** repositorio en GitHub, tablero de Trello con las actividades del sprint
