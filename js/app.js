@@ -56,10 +56,8 @@ function validFormFieldInput(data) {
 
 
 
-/**
- * Muestra la alerta de error con la lista de problemas encontrados.
- * @param {string[]} errors
- */
+/**Muestra la alerta de error con la lista de problemas encontrados.
+ @param {string[]} errors*/
 function mostrarErrores(errors) {
   formAlertList.innerHTML = ''; 
 
@@ -79,7 +77,7 @@ function mostrarExito() {
   formSuccess.classList.remove('d-none');
 }
 
-/** Oculta ambas alertas. */
+/* Oculta ambas alertas. */
 function ocultarAlertas() {
   formAlert.classList.add('d-none');
   formSuccess.classList.add('d-none');
