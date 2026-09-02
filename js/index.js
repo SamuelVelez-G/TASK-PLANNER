@@ -144,7 +144,7 @@ function renderTasks() {
                 <div class="d-flex justify-content-between align-items-start gap-2">
                   <h3 class="${taskNameClasses}">${task.name}</h3>
                   <div class="d-flex gap-2 flex-shrink-0">
-                    <button type="button" class="btn btn-link p-0 delete-task" data-task-id="${task.id}" aria-label="Eliminar tarea">
+                    <button type="button" class="btn btn-link p-0 delete-button" data-task-id="${task.id}" aria-label="Eliminar tarea">
                       <i class="bi bi-trash" title="Eliminar"></i>
                     </button>
                   </div>
@@ -203,11 +203,16 @@ const seedTasks = [
   }
 ];
 
-seedTasks.forEach((task) => {
-  taskManager.addTask(task);
-});
+taskManager.render = renderTasks;
 
-renderTasks();
+if (!taskManager.load()) {
+  seedTasks.forEach((task) => {
+    taskManager.addTask(task);
+  });
+  taskManager.save();
+}
+
+taskManager.render();
 
 newTaskForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -237,9 +242,10 @@ newTaskForm.addEventListener('submit', (event) => {
   };
 
   taskManager.addTask(newTask);
+  taskManager.save();
   newTaskForm.reset();
   mostrarExito();
-  renderTasks();
+  taskManager.render();
 });
 
 listContainer.addEventListener('change', (event) => {
@@ -251,11 +257,12 @@ listContainer.addEventListener('change', (event) => {
 
   const taskId = Number(toggle.dataset.taskId);
   taskManager.toggleTask(taskId);
-  renderTasks();
+  taskManager.save();
+  taskManager.render();
 });
 
 listContainer.addEventListener('click', (event) => {
-  const deleteButton = event.target.closest('.delete-task');
+  const deleteButton = event.target.closest('.delete-button');
 
   if (!deleteButton) {
     return;
@@ -263,7 +270,8 @@ listContainer.addEventListener('click', (event) => {
 
   const taskId = Number(deleteButton.dataset.taskId);
   taskManager.deleteTask(taskId);
-  renderTasks();
+  taskManager.save();
+  taskManager.render();
 });
 
 [newTaskNameInput, newTaskDescriptionInput, newTaskDueDateInput, newTaskStatusInput, newTaskPriorityInput].forEach((field) => {
