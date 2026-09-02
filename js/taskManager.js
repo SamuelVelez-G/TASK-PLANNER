@@ -35,16 +35,35 @@ class TaskManager {
     return task;
   }
 
-  deleteTask(id) {
-    const taskId = Number(id);
-    const originalLength = this.tasks.length;
+  deleteTask(taskId) {
+    const newTasks = [];
 
-    this.tasks = this.tasks.filter((task) => task.id !== taskId);
+    for (let task of this.tasks) {
+      if (task.id !== taskId) {
+        newTasks.push(task);
+      }
+    }
 
-    return originalLength !== this.tasks.length;
+    this.tasks = newTasks;
   }
 
   getAllTasks() {
     return [...this.tasks];
+  }
+
+  save() {
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+  }
+
+  load() {
+    const stored = localStorage.getItem('tasks');
+
+    if (!stored) {
+      return false;
+    }
+
+    this.tasks = JSON.parse(stored);
+    this.currentId = this.tasks.reduce((maxId, task) => Math.max(maxId, task.id), 0);
+    return true;
   }
 }
