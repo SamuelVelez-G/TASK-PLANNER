@@ -1,17 +1,18 @@
 class TaskManager {
-  constructor() {
+  constructor(currentId = 0) {
     this.tasks = [];
-    this.nextId = 1;
+    this.currentId = currentId;
   }
 
   addTask(task) {
+    this.currentId += 1;
+
     const newTask = {
-      id: this.nextId,
+      id: this.currentId,
       completed: false,
       ...task
     };
 
-    this.nextId += 1;
     this.tasks.push(newTask);
     return newTask;
   }
