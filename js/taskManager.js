@@ -26,7 +26,7 @@ class TaskManager {
     task.completed = !task.completed;
 
     if (task.completed) {
-      task.status = 'completada';
+      task.status = 'completada';     
     } else if (task.status === 'completada') {
       task.status = 'pendiente';
     }
