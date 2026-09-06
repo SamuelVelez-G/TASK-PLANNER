@@ -10,6 +10,12 @@ const newTaskPriorityInput = document.querySelector('#newTaskPriorityInput');
 const formAlert = document.querySelector('#formAlert');
 const formAlertList = document.querySelector('#formAlertList');
 const formSuccess = document.querySelector('#formSuccess');
+const statTotal = document.querySelector('#statTotal');
+const statPendientes = document.querySelector('#statPendientes');
+const statCompletadas = document.querySelector('#statCompletadas');
+const statProgresoLabel = document.querySelector('#statProgresoLabel');
+const statProgressBar = document.querySelector('#statProgressBar');
+const statProgressBarContainer = document.querySelector('#statProgressBarContainer');
 
 function formatDate(dateString) {
   if (!dateString) {
@@ -106,7 +112,27 @@ function getStatusConfig(status, completed) {
   };
 }
 
+function isTaskCompleted(task) {
+  return task.completed || task.status === 'completada';
+}
+
+function updateStats() {
+  const total = taskManager.tasks.length;
+  const completadas = taskManager.tasks.filter(isTaskCompleted).length;
+  const pendientes = total - completadas;
+  const progreso = total === 0 ? 0 : Math.round((completadas / total) * 100);
+
+  statTotal.textContent = total;
+  statPendientes.textContent = pendientes;
+  statCompletadas.textContent = completadas;
+  statProgresoLabel.textContent = `${progreso}%`;
+  statProgressBar.style.width = `${progreso}%`;
+  statProgressBarContainer.setAttribute('aria-valuenow', progreso);
+}
+
 function renderTasks() {
+  updateStats();
+
   if (!listContainer) {
     return;
   }
@@ -122,9 +148,11 @@ function renderTasks() {
     return;
   }
 
-  listContainer.innerHTML = taskManager.tasks
+  const sortedTasks = [...taskManager.tasks].sort((a, b) => isTaskCompleted(a) - isTaskCompleted(b));
+
+  listContainer.innerHTML = sortedTasks
     .map((task) => {
-      const isCompleted = task.completed || task.status === 'completada';
+      const isCompleted = isTaskCompleted(task);
       const statusConfig = getStatusConfig(task.status, isCompleted);
       const priorityText = task.priority ? task.priority.charAt(0).toUpperCase() + task.priority.slice(1) : 'Sin prioridad';
       const taskClasses = `card task-card ${isCompleted ? 'task-completada' : ''}`;
