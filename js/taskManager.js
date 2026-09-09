@@ -52,18 +52,28 @@ class TaskManager {
   }
 
   save() {
-    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    const tasksJson = JSON.stringify(this.tasks);
+    localStorage.setItem('tasks', tasksJson);
+
+    const currentId = String(this.currentId);
+    localStorage.setItem('currentId', currentId);
   }
 
   load() {
-    const stored = localStorage.getItem('tasks');
+    const tasksJson = localStorage.getItem('tasks');
 
-    if (!stored) {
-      return false;
+    if (tasksJson) {
+      this.tasks = JSON.parse(tasksJson);
     }
 
-    this.tasks = JSON.parse(stored);
-    this.currentId = this.tasks.reduce((maxId, task) => Math.max(maxId, task.id), 0);
-    return true;
+    const currentId = localStorage.getItem('currentId');
+
+    if (currentId) {
+      this.currentId = Number(currentId);
+    } else if (this.tasks.length > 0) {
+      this.currentId = this.tasks.reduce((maxId, task) => Math.max(maxId, task.id), 0);
+    }
+
+    return Boolean(tasksJson);
   }
 }
