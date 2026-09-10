@@ -53,7 +53,7 @@ class TaskManager {
 
   save() {
     const tasksJson = JSON.stringify(this.tasks);
-    localStorage.setItem('tasks', tasksJson);
+    localStorage.setItem('tasks', tasksJson); // Guardar las tareas en localStorage
 
     const currentId = String(this.currentId);
     localStorage.setItem('currentId', currentId);
